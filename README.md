@@ -36,11 +36,43 @@ Step 5: **Security Foundation
 The security of RSA relies on the difficulty of factoring large numbers; thus, choosing sufficiently large prime numbers for \( p \) and \( q \) is crucial for security.
 
 ## Program:
+```
+#include <stdio.h>
+#include <math.h>
 
+int gcd(int a, int b) {
+    if (b == 0)
+        return a;
+    return gcd(b, a % b);
+}
 
+int main() {
+    int p, q, n, phi, e, d = 0;
+    printf("Enter two prime numbers (p and q): ");
+    scanf("%d %d", &p, &q);
 
+    n = p * q;
+    phi = (p - 1) * (q - 1);
 
+    for (e = 2; e < phi; e++) {
+        if (gcd(e, phi) == 1)
+            break;
+    }
+
+    for (int i = 1; i < phi; i++) {
+        if ((i * e) % phi == 1) {
+            d = i;
+            break;
+        }
+    }
+
+    printf("Public Key: {%d, %d}\n", e, n);
+    printf("Private Key: {%d, %d}\n", d, n);
+    return 0;
+}
+```
 ## Output:
+<img width="588" height="97" alt="image" src="https://github.com/user-attachments/assets/f792ccc8-b4e7-4ea2-a254-3f20056df0e3" />
 
 
 
